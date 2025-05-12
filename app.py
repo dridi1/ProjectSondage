@@ -84,20 +84,42 @@ with tabs[1]:
 # Exploratoire
 with tabs[2]:
     st.title("Analyse Descriptive & Graphiques")
+
+    # Descriptive table
     desc = df.describe(include='all').T.reset_index().rename(columns={'index':'Variable'})
     st.dataframe(desc, use_container_width=True)
+
+    # Pick which columns to chart
     num_cols = df.select_dtypes(include=['number']).columns.tolist()
     cat_cols = df.select_dtypes(include=['object','category']).columns.tolist()
-    if num_cols:
-        for col in num_cols:
-            fig = px.histogram(df, x=col, marginal='box', nbins=30, title=f"Histogramme de {col}", template='plotly_white')
+
+    # Sidebar (or in‐page) selectors
+    st.markdown("#### Sélectionnez les variables à tracer")
+    sel_num = st.multiselect("Numériques", num_cols, default=num_cols[:2])
+    sel_cat = st.multiselect("Catégorielles", cat_cols, default=cat_cols[:2])
+
+    # Plot histograms for selected numeric cols
+    if sel_num:
+        st.markdown("##### Histogrammes")
+        for col in sel_num:
+            fig = px.histogram(
+                df, x=col, marginal='box', nbins=30,
+                title=f"Histogramme de {col}", template='plotly_white'
+            )
             st.plotly_chart(fig, use_container_width=True)
-    if cat_cols:
-        for col in cat_cols:
+
+    # Plot bar‐charts for selected categorical cols
+    if sel_cat:
+        st.markdown("##### Barres")
+        for col in sel_cat:
             vc = df[col].value_counts().reset_index()
-            vc.columns = [col,'Count']
-            fig = px.bar(vc, x=col, y='Count', title=f"Barres de {col}", template='plotly_white')
+            vc.columns = [col, 'Count']
+            fig = px.bar(
+                vc, x=col, y='Count',
+                title=f"Barres de {col}", template='plotly_white'
+            )
             st.plotly_chart(fig, use_container_width=True)
+
 
 # SRS
 with tabs[3]:
