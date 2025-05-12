@@ -45,8 +45,8 @@ This repository contains a Streamlit application for data sampling, exploration,
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/your-username/sampling-exploration-dashboard.git
-   cd sampling-exploration-dashboard
+   git clone https://github.com/dridi1/ProjectSondage.git
+   cd ProjectSondage
    ```
 
 2. **Create a virtual environment** (recommended)
@@ -73,7 +73,7 @@ This repository contains a Streamlit application for data sampling, exploration,
 
 ## ⚙️ Usage
 
-* Access the app in your browser at `http://localhost:8501`.
+* Access the app in your browser at `http://localhost:8501` or `https://projectsondage.streamlit.app/`.
 * Use the sidebar to upload your own data (Excel/CSV) or rely on the default dataset.
 * Navigate through tabs to explore data, generate samples, and download results.
 
